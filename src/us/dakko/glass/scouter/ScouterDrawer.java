@@ -74,7 +74,7 @@ public class ScouterDrawer implements SurfaceHolder.Callback {
                 if (mHolder != null) {
                     mChronometerView.start();
                 }
-                //playSound(mStartSoundId);
+                /* This is actually the OVER NINE THOUSAND clip... */
                 playSound(mCountDownSoundId);
             }
 

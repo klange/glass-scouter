@@ -168,15 +168,32 @@ public class ScouterView extends FrameLayout {
      * Update the value of the chronometer.
      */
     private void updateText() {
-    	long millis = SystemClock.elapsedRealtime() - mBaseMillis;
+        long millis = SystemClock.elapsedRealtime() - mBaseMillis;
         millis %= TimeUnit.HOURS.toMillis(1);
         millis %= TimeUnit.MINUTES.toMillis(1);
+        /*
+         * Because 9001 is OVER NINE THOUSAND!
+         */
         mView.setText(Long.toString(9001));
+        /*
+         * Can't I do this in the layout description?
+         * todo: learn android
+         */
         mView.setTextSize(110.0f);
+        /*
+         * RED because RED IS AWESOME
+         */
         mView.setTextColor(Color.RED);
         if (TimeUnit.MILLISECONDS.toSeconds(millis) > 2) {
-        	Service context = (Service)getContext();
-        	context.stopSelf();
+            /*
+             * Okay, this is kinda silly and my specific methods for doing this are dumb, but
+             * we're going to hijack the "stopwatch" functionality (it's actually just calls
+             * to SystemClock.elapsedRealtime()) to find out when we've been running for two
+             * seconds and then shut down our service. This destroys our livecard, so that
+             * we're not lingering as a live application.
+             */
+            Service context = (Service)getContext();
+            context.stopSelf();
         }
         if (mChangeListener != null) {
             mChangeListener.onChange();
